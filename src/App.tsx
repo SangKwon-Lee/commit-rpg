@@ -1,25 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import { Octokit } from "octokit";
+import React from "react";
+import { useEffect } from "react";
+import "./App.css";
+const octokit = new Octokit({
+  auth: "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",
+});
 function App() {
+  const Test = async () => {
+    try {
+      const { data: myRepos } = await octokit.request(
+        "GET /users/{username}/repos",
+        {
+          username: "sangkwon-lee",
+        }
+      );
+      const data = await Promise.all(
+        myRepos.map(async (data: any) => {
+          return await octokit.request("GET /repos/{owner}/{repo}/commits", {
+            owner: "sangkwon-lee",
+            repo: data.name,
+          });
+        })
+      );
+
+      console.log(data);
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    Test();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <img src="https://ghchart.rshah.org/sangkwon-lee" alt="" />
+    </>
   );
 }
 

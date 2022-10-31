@@ -1,11 +1,18 @@
+import axios from "axios";
 import { Octokit } from "octokit";
 import React from "react";
-import { useEffect } from "react";
+import routes from "./routes";
+import { useRoutes } from "react-router";
 import "./App.css";
+
 const octokit = new Octokit({
-  auth: "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",
+  auth: "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",
 });
+
 function App() {
+  //* 라우트 설정
+  const content = useRoutes(routes);
+
   const Test = async () => {
     try {
       const { data: myRepos } = await octokit.request(
@@ -27,15 +34,7 @@ function App() {
     } catch (e) {}
   };
 
-  useEffect(() => {
-    Test();
-  }, []);
-
-  return (
-    <>
-      <img src="https://ghchart.rshah.org/sangkwon-lee" alt="" />
-    </>
-  );
+  return <>{content}</>;
 }
 
 export default App;

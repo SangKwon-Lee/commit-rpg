@@ -31,8 +31,8 @@ const HomeContainer = () => {
       <div>홈</div>
       <a
         href={
-          "http://localhost:1337/api/connect/github"
-          // "https://github.com/login/oauth/authorize?client_id=8ba7614267b82e92cc58"
+          // "http://localhost:1337/api/connect/github"
+          "https://github.com/login/oauth/authorize?client_id=8ba7614267b82e92cc58"
         }
       >
         로그인

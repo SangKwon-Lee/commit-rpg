@@ -6,11 +6,12 @@ const GetToken = () => {
   const location = useLocation();
   const params = useParams();
   const navigate = useNavigate();
-  const { access_token } = qs.parse(location.search, {
-    ignoreQueryPrefix: true,
-  });
+
   useEffect(() => {
     const getJWT = async () => {
+      const { access_token } = qs.parse(location.search, {
+        ignoreQueryPrefix: true,
+      });
       try {
         const { data: jwt } = await axios.get(
           `http://localhost:1337/api/auth/github/callback${location.search}`
@@ -32,7 +33,7 @@ const GetToken = () => {
       }
     };
     getJWT();
-  }, [navigate, params.providerName, access_token, location.search]);
+  }, [navigate, params.providerName, location.search]);
 
   return null;
 };
